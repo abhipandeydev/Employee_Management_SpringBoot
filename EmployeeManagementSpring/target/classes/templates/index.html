@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+
+		<!-- Show Alert Message -->
+		<div th:if=${session.msg}>
+			<div class="alert alert-success" role="alert"
+				th:text="${session.msg}"></div>
+			 <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block> 
+		</div>
+		<!-- End Alert Message -->
+		
+		<div class="container mt-5">
+			<div class="card card-body">
+				<h4 class="text-center text-primary">Employee Details</h4>
+				<table class="table table-striped">
+					<thead class="bg-primary text-white">
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Name</th>
+							<th scope="col">Address</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone No</th>
+							<th scope="col">Salary</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="e: ${emp}">
+							<td th:text="${e.id}"></td>
+							<td th:text="${e.name}"></td>
+							<td th:text="${e.address}"></td>
+							<td th:text="${e.email}"></td>
+							<td th:text="${e.phno}"></td>
+							<td th:text="${e.salary}"></td>
+							<td><a class="btn btn-sm btn-primary"
+								th:href="@{/editemp/{id}(id=${e.id})}">Edit</a> <a
+								class="btn btn-sm btn-danger"
+								th:href="@{/delete/{id}(id=${e.id})}">Delete</a></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
